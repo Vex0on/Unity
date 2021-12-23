@@ -1,8 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Cs_nauka
 {
@@ -23,9 +19,9 @@ namespace Cs_nauka
         {
             liczbaPrac = 0;
         }
-        public void PokazPracownika()
+        public override string ToString()
         {
-            Console.WriteLine("{0, -13} {1, 5}", nazwisko, zarobki);
+            return String.Format("{0, -13} {1, 5}zł", nazwisko, zarobki);
         }
 
         public static double SumaZarobkow(Pracownik[] tab)
@@ -52,7 +48,7 @@ namespace Cs_nauka
 
             foreach (Pracownik p in robota)
             {
-                p.PokazPracownika();
+                Console.WriteLine(p.ToString());
             }
 
             Console.WriteLine();
