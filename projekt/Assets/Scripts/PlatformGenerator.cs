@@ -14,6 +14,8 @@ public class PlatformGenerator : MonoBehaviour
     public float distanceBetweenMin;
     public float distanceBetweenMax;
 
+    public ObjectPooler theObjectPool;
+
     // Odpala siê na starcie
     void Start()
     {
@@ -30,7 +32,12 @@ public class PlatformGenerator : MonoBehaviour
 
             transform.position = new Vector3(transform.position.x + platformWidth + distanceBetween, transform.position.y, transform.position.z); //Pozycja nowej platformy
 
-            Instantiate(thePlatform, transform.position, transform.rotation); //Kopiowanie i tworzenie nowych platform
+            //Instantiate(thePlatform, transform.position, transform.rotation); //Kopiowanie i tworzenie nowych platform
+            GameObject newPlatform = theObjectPool.GetPooledObject();
+
+            newPlatform.transform.position = transform.position; //Ustawia platformê na wczeœniej ustawionym "platform.postion"
+            newPlatform.transform.rotation = transform.rotation; //Upewnia siê, ¿e rotacja jest w³aœciwa
+            newPlatform.SetActive(true); //Aktywuje platformy
         }
     }
 }

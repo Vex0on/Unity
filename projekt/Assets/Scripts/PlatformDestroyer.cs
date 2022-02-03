@@ -18,7 +18,9 @@ public class PlatformDestroyer : MonoBehaviour
     {
         if(transform.position.x < platformDestructionPoint.transform.position.x) //Wyszukuje punkt, w którym niszcz¹ siê platformy
         {
-            Destroy (gameObject);
+            //Destroy (gameObject);
+
+            gameObject.SetActive(false); //Dezaktywuje stare platformy
         }
 
     }
