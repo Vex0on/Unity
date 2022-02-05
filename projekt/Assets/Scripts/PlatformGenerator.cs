@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlatformGenerator : MonoBehaviour
 {
 
-    public GameObject thePlatform;
     public Transform generationPoint;
     public float distanceBetween;
 
@@ -14,12 +13,21 @@ public class PlatformGenerator : MonoBehaviour
     public float distanceBetweenMin;
     public float distanceBetweenMax;
 
-    public ObjectPooler theObjectPool;
+    private int platformSelector;
+    private float[] platformWidths;
+
+    public ObjectPooler[] theObjectPools;
 
     // Odpala siê na starcie
     void Start()
     {
-        platformWidth = thePlatform.GetComponent<BoxCollider2D>().size.x; //Definiuje d³ugoœæ platformy
+
+        platformWidths = new float[theObjectPools.Length]; //Array z d³ugoœciami platform
+
+        for (int i = 0; i < theObjectPools.Length; i++)
+        {
+            platformWidths[i] = theObjectPools[i].pooledObject.GetComponent<BoxCollider2D>().size.x; //Definiuje d³ugoœæ platform
+        }
     }
 
     // Aktualizuje siê z ka¿dym frame'em
@@ -30,14 +38,19 @@ public class PlatformGenerator : MonoBehaviour
 
             distanceBetween = Random.Range(distanceBetweenMin, distanceBetweenMax);
 
-            transform.position = new Vector3(transform.position.x + platformWidth + distanceBetween, transform.position.y, transform.position.z); //Pozycja nowej platformy
+            platformSelector = Random.Range(0, theObjectPools.Length); //Losuje platforme spoœród podanych
 
-            //Instantiate(thePlatform, transform.position, transform.rotation); //Kopiowanie i tworzenie nowych platform
-            GameObject newPlatform = theObjectPool.GetPooledObject();
+            transform.position = new Vector3(transform.position.x + (platformWidths[platformSelector] / 2) + distanceBetween, transform.position.y, transform.position.z); //Pozycja nowej platformy
+
+            //Instantiate(thePlatforms[platformSelector], transform.position, transform.rotation); //Kopiowanie i tworzenie nowych platform
+
+            GameObject newPlatform = theObjectPools[platformSelector].GetPooledObject();
 
             newPlatform.transform.position = transform.position; //Ustawia platformê na wczeœniej ustawionym "platform.postion"
             newPlatform.transform.rotation = transform.rotation; //Upewnia siê, ¿e rotacja jest w³aœciwa
             newPlatform.SetActive(true); //Aktywuje platformy
+
+            transform.position = new Vector3(transform.position.x + (platformWidths[platformSelector] / 2), transform.position.y, transform.position.z); //Pozycja nowej platformy
         }
     }
 }
