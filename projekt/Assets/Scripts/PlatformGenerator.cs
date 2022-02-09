@@ -18,6 +18,12 @@ public class PlatformGenerator : MonoBehaviour
 
     public ObjectPooler[] theObjectPools;
 
+    private float minHeight;
+    public Transform maxHeightPoint;
+    private float maxHeight;
+    public float maxHeightChange;
+    private float heightChange;
+
     // Odpala siê na starcie
     void Start()
     {
@@ -28,6 +34,10 @@ public class PlatformGenerator : MonoBehaviour
         {
             platformWidths[i] = theObjectPools[i].pooledObject.GetComponent<BoxCollider2D>().size.x; //Definiuje d³ugoœæ platform
         }
+
+        // Definiujemy min i max wysokoœæ generowania platform
+        minHeight = transform.position.y;
+        maxHeight = maxHeightPoint.position.y;
     }
 
     // Aktualizuje siê z ka¿dym frame'em
@@ -40,7 +50,18 @@ public class PlatformGenerator : MonoBehaviour
 
             platformSelector = Random.Range(0, theObjectPools.Length); //Losuje platforme spoœród podanych
 
-            transform.position = new Vector3(transform.position.x + (platformWidths[platformSelector] / 2) + distanceBetween, transform.position.y, transform.position.z); //Pozycja nowej platformy
+            heightChange = transform.position.y + Random.Range(maxHeightChange, -maxHeightChange); //Zmiana wysokoœci platform
+
+            // Limit zmiany wysokoœci, ¿eby platformy nie ucieka³y poza obszar kamery
+            if(heightChange > maxHeight)
+            {
+                heightChange = maxHeight;
+            } else if (heightChange < minHeight)
+            {
+                heightChange = minHeight;
+            }
+
+            transform.position = new Vector3(transform.position.x + (platformWidths[platformSelector] / 2) + distanceBetween, heightChange, transform.position.z); //Pozycja nowej platformy
 
             //Instantiate(thePlatforms[platformSelector], transform.position, transform.rotation); //Kopiowanie i tworzenie nowych platform
 
