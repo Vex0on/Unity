@@ -5,8 +5,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed;
-    public float jumpForce;
+    public float speedMultiplier;
+    public float speedIncreaseMilestone;
+    private float speedMilestoneCount;
 
+    public float jumpForce;
     public float jumpTime;
     private float jumpTimeCounter;
 
@@ -14,8 +17,10 @@ public class PlayerController : MonoBehaviour
     
     public bool onGround;
     public LayerMask whatIsGround;
+    public Transform groundCheck;
+    public float groundCheckRadius;
 
-    private Collider2D myCollider;
+    //private Collider2D myCollider;
 
     private Animator myAnimator;
 
@@ -24,18 +29,29 @@ public class PlayerController : MonoBehaviour
     {
         myRigidbody = GetComponent<Rigidbody2D>();
 
-        myCollider = GetComponent<Collider2D>();
+        //myCollider = GetComponent<Collider2D>();
 
         myAnimator = GetComponent<Animator>();
 
         jumpTimeCounter = jumpTime;
+
+        speedMilestoneCount = speedIncreaseMilestone;
     }
 
     // Update is called once per frame
     void Update()
     {
         // Sprawdza czy postaæ dotyka Collidera czyli ziemi
-        onGround = Physics2D.IsTouchingLayers(myCollider, whatIsGround);
+        onGround = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
+
+        // Gdy przekraczamy pewna pozycje to zaczynamy sie poruszac szybciej
+        if(transform.position.x > speedMilestoneCount)
+        {
+            speedMilestoneCount += speedIncreaseMilestone;
+
+            speedIncreaseMilestone = speedIncreaseMilestone * speedMultiplier; //Zwiêkszanie dystansu, w ktorym przyspieszamy
+            moveSpeed = moveSpeed * speedMultiplier;
+        }
 
         // Stale biegn¹ca postaæ w praw¹ stronê
         myRigidbody.velocity = new Vector2(moveSpeed, myRigidbody.velocity.y);
