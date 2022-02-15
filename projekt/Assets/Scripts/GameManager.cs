@@ -13,12 +13,16 @@ public class GameManager : MonoBehaviour
 
     private PlatformDestroyer[] platformList;
 
+    private ScoreManager theScoreManager;
+
     // Start is called before the first frame update
     void Start()
     {
         // Ustalamy pozycje startowa dla generatora platform i dla gracza
         platformStartPoint = platformGenerator.position;
         playerStartPoint = thePlayer.transform.position;
+
+        theScoreManager = FindObjectOfType<ScoreManager>();
     }
 
     // Update is called once per frame
@@ -29,6 +33,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator RestartGameCo()
     {
+        theScoreManager.scoreIncreasing = false;
         thePlayer.gameObject.SetActive(false); // Dezaktywuje postac w momencie smierci
         // Restartuje pozycje dla gracza i platformy do wartosci startowych
         yield return new WaitForSeconds(0.5f); // OpóŸnienie
@@ -41,5 +46,8 @@ public class GameManager : MonoBehaviour
         thePlayer.transform.position = playerStartPoint;
         platformGenerator.position = platformStartPoint;
         thePlayer.gameObject.SetActive(true); // Aktywuje ponownie postac
+
+        theScoreManager.scoreCount = 0;
+        theScoreManager.scoreIncreasing = true;
     }
 }
