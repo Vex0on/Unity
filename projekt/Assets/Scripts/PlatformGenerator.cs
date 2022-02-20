@@ -24,6 +24,9 @@ public class PlatformGenerator : MonoBehaviour
     public float maxHeightChange;
     private float heightChange;
 
+    private CoinGenerator theCoinGenerator;
+    public float randomCoinThreshold;
+
     // Odpala siê na starcie
     void Start()
     {
@@ -38,6 +41,8 @@ public class PlatformGenerator : MonoBehaviour
         // Definiujemy min i max wysokoœæ generowania platform
         minHeight = transform.position.y;
         maxHeight = maxHeightPoint.position.y;
+
+        theCoinGenerator = FindObjectOfType<CoinGenerator>();
     }
 
     // Aktualizuje siê z ka¿dym frame'em
@@ -70,6 +75,13 @@ public class PlatformGenerator : MonoBehaviour
             newPlatform.transform.position = transform.position; //Ustawia platformê na wczeœniej ustawionym "platform.postion"
             newPlatform.transform.rotation = transform.rotation; //Upewnia siê, ¿e rotacja jest w³aœciwa
             newPlatform.SetActive(true); //Aktywuje platformy
+
+
+            if(Random.Range(0f, 100f) < randomCoinThreshold)
+            {
+                theCoinGenerator.SpawnCoins(new Vector3(transform.position.x - 1.2f, transform.position.y + 0.5f, transform.position.z)); // Spawnowanie monet
+            }
+
 
             transform.position = new Vector3(transform.position.x + (platformWidths[platformSelector] / 2), transform.position.y, transform.position.z); //Pozycja nowej platformy
         }
