@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     public float jumpTime;
     private float jumpTimeCounter;
 
+    private bool stoppedJumping;
+
     private Rigidbody2D myRigidbody;
     
     public bool onGround;
@@ -72,11 +74,12 @@ public class PlayerController : MonoBehaviour
             if(onGround)
             {
                 myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, jumpForce);
+                stoppedJumping = false;
             }
         }
 
         // Gdy przytrzymujemy spacje/LPM to skaczemy wy¿ej
-        if(Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0))
+        if((Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0)) && !stoppedJumping)
         {
             if(jumpTimeCounter > 0)
             {
@@ -89,6 +92,7 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(0))
         {
             jumpTimeCounter = 0;
+            stoppedJumping = true;
         }
 
         // Po powrocie na ziemie Counter wraca na 1
