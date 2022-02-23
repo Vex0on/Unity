@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
 
     private ScoreManager theScoreManager;
 
+    public DeathMenu theDeathScreen;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,15 +30,17 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     public void RestartGame()
     {
-        StartCoroutine("RestartGameCo");
-    }
-
-    public IEnumerator RestartGameCo()
-    {
         theScoreManager.scoreIncreasing = false;
         thePlayer.gameObject.SetActive(false); // Dezaktywuje postac w momencie smierci
-        // Restartuje pozycje dla gracza i platformy do wartosci startowych
-        yield return new WaitForSeconds(0.5f); // OpóŸnienie
+
+        theDeathScreen.gameObject.SetActive(true); // W³acza ekran smierci
+
+        //StartCoroutine("RestartGameCo");
+    }
+
+    public void Reset()
+    {
+        theDeathScreen.gameObject.SetActive(false); // Wy³acza ekran smierci
         platformList = FindObjectsOfType<PlatformDestroyer>(); // Lista platform, ktore istnieja w momencie smierci
         for (int i = 0; i < platformList.Length; i++)
         {
@@ -50,4 +54,5 @@ public class GameManager : MonoBehaviour
         theScoreManager.scoreCount = 0;
         theScoreManager.scoreIncreasing = true;
     }
+
 }
