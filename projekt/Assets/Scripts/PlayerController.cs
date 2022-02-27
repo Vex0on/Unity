@@ -94,7 +94,6 @@ public class PlayerController : MonoBehaviour
             jumpTimeCounter = 0;
             stoppedJumping = true;
         }
-
         // Po powrocie na ziemie Counter wraca na 1
         if(onGround)
         {
