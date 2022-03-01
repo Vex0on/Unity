@@ -1,15 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
 
     public string playGameLevel;
 
+    public GameObject optionsScreen;
+
     public void PlayGame()
     {
-        Application.LoadLevel(playGameLevel);
+        SceneManager.LoadScene(playGameLevel);
     }
 
     public void Quit()
@@ -17,4 +20,13 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
     }
 
+    public void OpenOptions()
+    {
+        optionsScreen.SetActive(true);
+    }
+
+    public void CloseOptions()
+    {
+        optionsScreen.SetActive(false);
+    }
 }
