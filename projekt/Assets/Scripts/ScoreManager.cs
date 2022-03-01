@@ -1,11 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
 
-    public Text scoreText;
-    public Text hiScoreText;
+    public TMP_Text scoreText;
+    public TMP_Text hiScoreText;
 
     public float scoreCount;
     public float hiScoreCount;

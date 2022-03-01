@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DeathMenu : MonoBehaviour
 {
@@ -12,6 +13,6 @@ public class DeathMenu : MonoBehaviour
 
     public void ReturnToMain()
     {
-        Application.LoadLevel(mainMenuLevel); //Laduje menu glowne
+        SceneManager.LoadScene(mainMenuLevel); //Laduje menu glowne
     }
 }
