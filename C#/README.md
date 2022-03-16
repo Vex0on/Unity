@@ -1,5 +1,5 @@
 # Nauka Postępy
-1. Basics
+## 1. Basics
 - [x] C# Basics
 - [_] .NET 6
 - [_] Entity Framework
