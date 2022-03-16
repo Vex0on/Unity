@@ -1,4 +1,4 @@
-﻿using System;
+﻿prawusing System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,46 +10,58 @@ namespace Ckratka
     {
         static void Main(string[] args)
         {
-            double lb1, lb2;
-            int choice;
-            Console.WriteLine("Lista operacji: ");
-            Console.WriteLine("1. + ");
-            Console.WriteLine("2. - ");
-            Console.WriteLine("3. * ");
-            Console.WriteLine("4. / ");
-            Console.WriteLine("Wybierz operację: ");
-            choice = int.Parse(Console.ReadLine());
-            if(choice > 4)
+            try
             {
-                Console.WriteLine("Podaj liczbę z zakresu 1-4");
-                Console.Read();
-                Environment.Exit(0);
-            }
-            Console.WriteLine("Podaj pierwszą liczbę: ");
-            lb1 = Convert.ToDouble(Console.ReadLine());
-            Console.WriteLine("Podaj drugą liczbę: ");
-            lb2 = Convert.ToDouble(Console.ReadLine());
+                double lb1, lb2;
+                int choice;
+                Console.WriteLine("Lista operacji: ");
+                Console.WriteLine("1. + ");
+                Console.WriteLine("2. - ");
+                Console.WriteLine("3. * ");
+                Console.WriteLine("4. / ");
+                Console.WriteLine("Wybierz operację: ");
+                choice = int.Parse(Console.ReadLine());
+                if (choice > 4)
+                {
+                    Console.WriteLine("Podaj liczbę z zakresu 1-4");
+                    Console.Read();
+                    Environment.Exit(0);
+                }
+                Console.WriteLine("Podaj pierwszą liczbę: ");
+                lb1 = Convert.ToDouble(Console.ReadLine());
+                Console.WriteLine("Podaj drugą liczbę: ");
+                lb2 = Convert.ToDouble(Console.ReadLine());
 
-            if (choice == 1)
+                if (choice == 1)
+                {
+                    Console.WriteLine("Suma tych liczb wynosi: " + suma(lb1, lb2));
+                }
+                else if (choice == 2)
+                {
+                    Console.WriteLine("Różnica tych liczb wynosi: " + diff(lb1, lb2));
+
+                }
+                else if (choice == 3)
+                {
+                    Console.WriteLine("Iloczyn tych liczb wynosi: " + prod(lb1, lb2));
+
+                }
+                else if (choice == 4)
+                {
+                    if (lb2 == 0)
+                    {
+                        Console.WriteLine("Próbowałeś podzielić przez 0!");
+                        Console.Read();
+                        Environment.Exit(0);
+                    }
+                    Console.WriteLine("Iloraz tych liczb wynosi: " + quot(lb1, lb2));
+
+                }
+            }
+            catch(FormatException e)
             {
-                Console.WriteLine("Suma tych liczb wynosi: " + suma(lb1, lb2));
+                Console.WriteLine(e.Message);
             }
-            else if (choice == 2)
-            {
-                Console.WriteLine("Różnica tych liczb wynosi: " + diff(lb1, lb2));
-
-            }
-            else if (choice == 3)
-            {
-                Console.WriteLine("Iloczyn tych liczb wynosi: " + prod(lb1, lb2));
-
-            }
-            else if (choice == 4)
-            {
-                Console.WriteLine("Iloraz tych liczb wynosi: " + quot(lb1, lb2));
-
-            }
-
 
             Console.Read();
 
