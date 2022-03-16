@@ -1,4 +1,4 @@
-#1 Nauka Postępy
+# Nauka Postępy
 1. Basics
 - [x] C# Basics
 - [_] .NET 6
