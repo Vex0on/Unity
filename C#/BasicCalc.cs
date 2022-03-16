@@ -10,7 +10,8 @@ namespace Ckratka
     {
         static void Main(string[] args)
         {
-            int lb1, lb2, choice;
+            double lb1, lb2;
+            int choice;
             Console.WriteLine("Lista operacji: ");
             Console.WriteLine("1. + ");
             Console.WriteLine("2. - ");
@@ -25,9 +26,9 @@ namespace Ckratka
                 Environment.Exit(0);
             }
             Console.WriteLine("Podaj pierwszą liczbę: ");
-            lb1 = int.Parse(Console.ReadLine());
+            lb1 = Convert.ToDouble(Console.ReadLine());
             Console.WriteLine("Podaj drugą liczbę: ");
-            lb2 = int.Parse(Console.ReadLine());
+            lb2 = Convert.ToDouble(Console.ReadLine());
 
             if (choice == 1)
             {
@@ -53,19 +54,19 @@ namespace Ckratka
             Console.Read();
 
         }
-        public static int suma(int x, int y)
+        public static double suma(double x, double y)
         {
             return x + y;
         }
-        public static int diff(int x, int y)
+        public static double diff(double x, double y)
         {
             return x - y;
         }
-        public static int prod(int x, int y)
+        public static double prod(double x, double y)
         {
             return x * y;
         }
-        public static int quot(int x, int y)
+        public static double quot(double x, double y)
         {
             return x / y;
         }
