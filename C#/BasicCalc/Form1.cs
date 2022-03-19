@@ -20,7 +20,7 @@ namespace BasicCalc
         string firstarg = "";
         string secondarg = "";
         string input = "";
-        double result = 0;
+        float result = 0;
         char func;
 
         private void oneButton_Click(object sender, EventArgs e)
@@ -99,45 +99,37 @@ namespace BasicCalc
             CalcDisplay.Text += input;
         }
 
-        private string GetSecondarg()
-        {
-            return secondarg;
-        }
+        float firstNum, secondNum;
 
         private void equalButton_Click(object sender, EventArgs e)
         {
             secondarg = input;
-            double firstNum, secondNum;
 
             //Plus
             if (func == '+')
             {
-                firstNum = Convert.ToDouble(firstarg);
-                secondNum = Convert.ToDouble(secondarg);
+                secondNum = float.Parse(CalcDisplay.Text);
                 result = firstNum + secondNum;
                 CalcDisplay.Text = result.ToString();
             }
             //Minus
             else if (func == '-')
             {
-                firstNum = Convert.ToDouble(firstarg);
-                secondNum = Convert.ToDouble(secondarg);
+                secondNum = float.Parse(CalcDisplay.Text);
                 result = firstNum - secondNum;
                 CalcDisplay.Text = result.ToString();
             }
             //Multiply
             else if (func == '*')
             {
-                firstNum = Convert.ToDouble(firstarg);
-                secondNum = Convert.ToDouble(secondarg);
+                secondNum = float.Parse(CalcDisplay.Text);
                 result = firstNum * secondNum;
                 CalcDisplay.Text = result.ToString();
             }
             //Divide
             else if (func == '/')
             {
-                firstNum = Convert.ToDouble(firstarg);
-                secondNum = Convert.ToDouble(secondarg);
+                secondNum = float.Parse(CalcDisplay.Text);
                 if (secondNum == '0')
                 {
                     CalcDisplay.Text = "Never divide by 0";
@@ -151,21 +143,22 @@ namespace BasicCalc
             //Square
             else if (func == '^')
             {
-                firstNum = Convert.ToDouble(firstarg);
+                firstNum = float.Parse(CalcDisplay.Text);
                 result = firstNum * firstNum;
                 CalcDisplay.Text = result.ToString();
             }
             //Squareroot
             else if (func == '$')
             {
-                firstNum = Convert.ToDouble(firstarg);
-                result = Math.Sqrt(firstNum);
+                firstNum = float.Parse(CalcDisplay.Text);
+                result = (float)Math.Sqrt(firstNum);
                 CalcDisplay.Text = result.ToString();
             }
         }
 
         private void minusButton_Click(object sender, EventArgs e)
         {
+            firstNum = float.Parse(CalcDisplay.Text);
             func = '-';
             firstarg = input;
             input = "";
@@ -173,6 +166,7 @@ namespace BasicCalc
 
         private void plusButton_Click(object sender, EventArgs e)
         {
+            firstNum = float.Parse(CalcDisplay.Text);
             func = '+';
             firstarg = input;
             input = "";
@@ -180,6 +174,7 @@ namespace BasicCalc
 
         private void multiplyButton_Click(object sender, EventArgs e)
         {
+            firstNum = float.Parse(CalcDisplay.Text);
             func = '*';
             firstarg = input;
             input = "";
@@ -187,6 +182,7 @@ namespace BasicCalc
 
         private void divideButton_Click(object sender, EventArgs e)
         {
+            firstNum = float.Parse(CalcDisplay.Text);
             func = '/';
             firstarg = input;
             input = "";
@@ -211,7 +207,7 @@ namespace BasicCalc
             firstarg = "";
             secondarg = "";
             input = "";
-            result = 0.0;
+            result = 0;
             CalcDisplay.Text = "0";
         }
     }
