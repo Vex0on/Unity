@@ -412,3 +412,4 @@ MigrationBackup/
 FodyWeavers.xsd
 
 *.cginc
+*.shader
