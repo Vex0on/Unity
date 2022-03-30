@@ -3903,7 +3903,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 8
-  speedMultiplier: 1.1
+  speedMultiplier: 1.03
   speedIncreaseMilestone: 50
   jumpForce: 6.51
   jumpTime: 0.25

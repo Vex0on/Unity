@@ -4,26 +4,30 @@ using UnityEngine;
 
 public class PlatformGenerator : MonoBehaviour
 {
-
+    [Header("PlatformGenerator")]
     public Transform generationPoint;
+    //private float platformWidth;
+
+    [Header("Platform Distance")]
     public float distanceBetween;
-
-    private float platformWidth;
-
     public float distanceBetweenMin;
     public float distanceBetweenMax;
 
+    [Header("Platforms")]
     private int platformSelector;
     private float[] platformWidths;
 
+    [Header("Object Pooling")]
     public ObjectPooler[] theObjectPools;
 
+    [Header("Platform Height")]
     private float minHeight;
     public Transform maxHeightPoint;
     private float maxHeight;
     public float maxHeightChange;
     private float heightChange;
 
+    [Header("Coin Generator sys")]
     private CoinGenerator theCoinGenerator;
     public float randomCoinThreshold;
 

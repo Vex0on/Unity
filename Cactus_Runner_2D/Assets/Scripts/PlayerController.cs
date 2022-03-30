@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Speed")]
     public float moveSpeed;
     private float moveSpeedStore;
     public float speedMultiplier;
@@ -13,23 +14,26 @@ public class PlayerController : MonoBehaviour
     private float speedMilestoneCount;
     private float speedMilestoneCountStore;
 
+    [Header("Jump")]
     public float jumpForce;
     public float jumpTime;
     private float jumpTimeCounter;
-
     private bool stoppedJumping;
 
+    [Header("Components")]
     private Rigidbody2D myRigidbody;
     
+    [Header("Ground Detection")]
     public bool onGround;
     public LayerMask whatIsGround;
     public Transform groundCheck;
     public float groundCheckRadius;
 
     //private Collider2D myCollider;
-
+    [Header("Animation")]
     private Animator myAnimator;
 
+    [Header("Game Manager")]
     public GameManager theGameManager;
 
     // Start is called before the first frame update
