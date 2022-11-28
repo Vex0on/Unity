@@ -1,9 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController Instance { get; private set; }
+
     [Header("Speed")]
     public float moveSpeed;
     private float moveSpeedStore;
@@ -22,7 +23,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Components")]
     private Rigidbody2D myRigidbody;
-    
+
     [Header("Ground Detection")]
     public bool onGround;
     public LayerMask whatIsGround;
@@ -31,19 +32,18 @@ public class PlayerController : MonoBehaviour
 
     //private Collider2D myCollider;
     [Header("Animation")]
-    private Animator myAnimator;
+    private Animator animator;
 
-    [Header("Game Manager")]
-    public GameManager theGameManager;
+    [Header("Ogolne")]
+    public CanvasController canvasController;
+    public GameObject platformDestroyPoint;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
+        Instance = this;
+
         myRigidbody = GetComponent<Rigidbody2D>();
-
-        //myCollider = GetComponent<Collider2D>();
-
-        myAnimator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
 
         jumpTimeCounter = jumpTime;
 
@@ -54,28 +54,27 @@ public class PlayerController : MonoBehaviour
         speedIncreaseMilestoneStore = speedIncreaseMilestone;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         // Sprawdza czy postaæ dotyka Collidera czyli ziemi
         onGround = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
 
         // Gdy przekraczamy pewna pozycje to zaczynamy sie poruszac szybciej
-        if(transform.position.x > speedMilestoneCount)
+        if (transform.position.x > speedMilestoneCount)
         {
             speedMilestoneCount += speedIncreaseMilestone;
 
-            speedIncreaseMilestone = speedIncreaseMilestone * speedMultiplier; //Zwiêkszanie dystansu, w ktorym przyspieszamy
-            moveSpeed = moveSpeed * speedMultiplier;
+            speedIncreaseMilestone *= speedMultiplier; //Zwiêkszanie dystansu, w ktorym przyspieszamy
+            moveSpeed *= speedMultiplier;
         }
 
         // Stale biegn¹ca postaæ w praw¹ stronê
         myRigidbody.velocity = new Vector2(moveSpeed, myRigidbody.velocity.y);
 
         // W momencie wciœniêcia spacji lub LPM skaczemy z wartoœci¹ "jumpForce" tylko jeœli spe³niamy warunek onGround
-        if(Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0) )
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
         {
-            if(onGround)
+            if (onGround)
             {
                 myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, jumpForce);
                 stoppedJumping = false;
@@ -83,9 +82,9 @@ public class PlayerController : MonoBehaviour
         }
 
         // Gdy przytrzymujemy spacje/LPM to skaczemy wy¿ej
-        if((Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0)) && !stoppedJumping)
+        if ((Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0)) && !stoppedJumping)
         {
-            if(jumpTimeCounter > 0)
+            if (jumpTimeCounter > 0)
             {
                 myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, jumpForce);
                 jumpTimeCounter -= Time.deltaTime;
@@ -93,32 +92,44 @@ public class PlayerController : MonoBehaviour
         }
 
         // Gdy puœcimy spacje/LPM to resetujemy Counter
-        if(Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(0))
+        if (Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(0))
         {
             jumpTimeCounter = 0;
             stoppedJumping = true;
         }
         // Po powrocie na ziemie Counter wraca na 1
-        if(onGround)
-        {
+        if (onGround)
             jumpTimeCounter = jumpTime;
-        }
 
         // Animacja biegu i skoku
-        myAnimator.SetFloat("Speed", myRigidbody.velocity.x);
-        myAnimator.SetBool("OnGround", onGround);
-
+        animator.SetFloat("Speed", myRigidbody.velocity.x);
+        animator.SetBool("OnGround", onGround);
     }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if(other.gameObject.tag == "killbox")
+        if (other.gameObject.CompareTag("killbox"))
         {
-            theGameManager.RestartGame();
+            canvasController.scoreManager.scoreIncreasing = false;
+            canvasController.deathMenu.SetActive(true); // W³acza ekran smierci
+
             // Restart predkosci postaci w momencie smierci do wartosci poczatkowej
             moveSpeed = moveSpeedStore;
             speedMilestoneCount = speedMilestoneCountStore;
             speedIncreaseMilestone = speedIncreaseMilestoneStore;
+
+            canvasController.scoreManager.CheckToSaveHighScore();
+
+            gameObject.SetActive(false); // Dezaktywuje postac w momencie smierci
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.TryGetComponent<Coin>(out var coin))
+        {
+            canvasController.scoreManager.AddScore(coin.scoreToGive);
+            coin.gameObject.SetActive(false);
         }
     }
 }

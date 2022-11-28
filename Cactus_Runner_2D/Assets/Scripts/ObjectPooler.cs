@@ -1,15 +1,13 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectPooler : MonoBehaviour
 {
-
     public GameObject pooledObject;
 
     public int pooledAmount;
 
-    List<GameObject> pooledObjects;
+    public List<GameObject> pooledObjects;
 
     void Start()
     {
@@ -17,7 +15,7 @@ public class ObjectPooler : MonoBehaviour
 
         for (int i = 0; i < pooledAmount; i++)
         {
-            GameObject obj = (GameObject)Instantiate(pooledObject); //Castowanie obiektu
+            GameObject obj = Instantiate(pooledObject); //Castowanie obiektu
             obj.SetActive(false); //Dezaktywacja obiektu
             pooledObjects.Add(obj); //Dodanie obiektu do listy
         }
@@ -26,16 +24,12 @@ public class ObjectPooler : MonoBehaviour
     public GameObject GetPooledObject()
     {
         for (int i = 0; i < pooledObjects.Count; i++)
-        {
-            if(!pooledObjects[i].activeInHierarchy) //Sprawdza czy jest aktywne na aktualnej scenie
-            {
+            if(!pooledObjects[i].activeSelf) //Sprawdza czy jest aktywne na aktualnej scenie
                 return pooledObjects[i];
-            }
-        }
 
-        GameObject obj = (GameObject)Instantiate(pooledObject);
+        GameObject obj = Instantiate(pooledObject);
         obj.SetActive(false);
-        pooledObjects.Add(obj);
+        pooledObjects.Add(Instantiate(pooledObject));
         return obj;
     }
 }

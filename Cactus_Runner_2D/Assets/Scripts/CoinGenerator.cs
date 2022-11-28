@@ -1,14 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CoinGenerator : MonoBehaviour
 {
-
     public ObjectPooler coinPool;
 
     public float distanceBetweenCoins;
-    // Spawnowanie monet
+
+
     public void SpawnCoins(Vector3 startPosition) 
     {
         GameObject coin1 = coinPool.GetPooledObject();

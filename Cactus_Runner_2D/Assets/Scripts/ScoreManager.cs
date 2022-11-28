@@ -1,10 +1,8 @@
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
-
     public TMP_Text scoreText;
     public TMP_Text hiScoreText;
 
@@ -17,36 +15,28 @@ public class ScoreManager : MonoBehaviour
 
     void Start()
     {
-        // Zapisywanie wyniku dla gracza, nawet jesli wyjdzie z gry
         if(PlayerPrefs.HasKey("HighScore"))
-        {
             hiScoreCount = PlayerPrefs.GetFloat("HighScore");
-        }
+        hiScoreText.SetText("High Score: " + Mathf.Round(hiScoreCount));
     }
 
     void Update()
     {
         if(scoreIncreasing)
-        {
             scoreCount += pointsPerSecond * Time.deltaTime; // Dodawanie punktów wzglêdem ubywaj¹cego czasu
-        }
 
-        // Jesli punkty przekraczaja highScore to highScore rosnie
+        scoreText.SetText("Score: " + Mathf.Round(scoreCount));
+    }
+
+    public void CheckToSaveHighScore()
+    {
         if (scoreCount > hiScoreCount)
         {
             hiScoreCount = scoreCount;
             PlayerPrefs.SetFloat("HighScore", hiScoreCount);
+            hiScoreText.SetText("High Score: " + Mathf.Round(hiScoreCount));
         }
-
-        // Przypisanie tekstow ze sceny
-        scoreText.text = "Score: " + Mathf.Round(scoreCount);
-        hiScoreText.text = "High Score: " + Mathf.Round(hiScoreCount);
-
     }
 
-    // Dodawania punktow
-    public void AddScore(int pointsToAdd)
-    {
-        scoreCount += pointsToAdd;
-    }
+    public void AddScore(int pointsToAdd) => scoreCount += pointsToAdd;
 }

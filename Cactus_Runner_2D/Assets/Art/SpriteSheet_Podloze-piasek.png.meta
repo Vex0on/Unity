@@ -96,7 +96,7 @@ TextureImporter:
       213: 8074890060914994806
     second: SpriteSheet_Podloze-piasek_30
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -113,10 +113,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -155,6 +157,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -218,6 +222,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -892,9 +908,40 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      SpriteSheet_Podloze-piasek_7: -7530595201509140337
+      SpriteSheet_Podloze-piasek_14: 3678245170498457380
+      SpriteSheet_Podloze-piasek_9: -7087454358208872597
+      SpriteSheet_Podloze-piasek_27: -6258220117405041603
+      SpriteSheet_Podloze-piasek_13: 1317273143115473578
+      SpriteSheet_Podloze-piasek_30: 8074890060914994806
+      SpriteSheet_Podloze-piasek_0: 1759649793864011248
+      SpriteSheet_Podloze-piasek_16: -7491817265902620454
+      SpriteSheet_Podloze-piasek_1: -7932307141427479022
+      SpriteSheet_Podloze-piasek_3: -7010725720190647491
+      SpriteSheet_Podloze-piasek_23: -2676620026945150307
+      SpriteSheet_Podloze-piasek_21: -4867455791413118937
+      SpriteSheet_Podloze-piasek_25: 3591375948045525647
+      SpriteSheet_Podloze-piasek_28: 4998283417824931479
+      SpriteSheet_Podloze-piasek_2: -1877282350458376181
+      SpriteSheet_Podloze-piasek_29: -604323573333020361
+      SpriteSheet_Podloze-piasek_24: -7793796501841413834
+      SpriteSheet_Podloze-piasek_20: -8239435071226823411
+      SpriteSheet_Podloze-piasek_26: -2473104237261830373
+      SpriteSheet_Podloze-piasek_4: 4637081096648687855
+      SpriteSheet_Podloze-piasek_8: 6836177946391484416
+      SpriteSheet_Podloze-piasek_10: 1262903175840136240
+      SpriteSheet_Podloze-piasek_11: 3239067093513751025
+      SpriteSheet_Podloze-piasek_15: 2511719899009773201
+      SpriteSheet_Podloze-piasek_22: -5072321333833870500
+      SpriteSheet_Podloze-piasek_17: -8299896321365337608
+      SpriteSheet_Podloze-piasek_19: -49662124937727981
+      SpriteSheet_Podloze-piasek_12: 2352334353658826792
+      SpriteSheet_Podloze-piasek_5: -5321029706215638230
+      SpriteSheet_Podloze-piasek_6: 5556259308579267980
+      SpriteSheet_Podloze-piasek_18: -5398261173572899221
   spritePackingTag: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
